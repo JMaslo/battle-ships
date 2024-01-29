@@ -3,6 +3,7 @@ package me.devik.battleships.model;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import java.util.List;
 
 @Getter
@@ -21,6 +22,7 @@ public class Player {
         this.missCount = missCount;
         this.score = score;
     }
+
 
 
 }
