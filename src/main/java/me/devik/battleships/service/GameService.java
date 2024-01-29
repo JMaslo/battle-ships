@@ -9,7 +9,7 @@ public class GameService {
     private Board gameBoard;
 
     public void startNewGame() {
-
+        // Request a new game
     }
 
     public void makeMove(int x, int y) {
