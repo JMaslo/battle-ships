@@ -25,11 +25,11 @@ public class StompDemoController {
     @MessageMapping("/topic/hello")
     @SendToUser("/queue/hello")
     private HelloResponse hello(@Payload HelloRequest message, StompHeaderAccessor headerAccessor) {
-        log.info("User {} said hello", message.getName());
+        log.info("User {} connected!", message.getName());
         headerAccessor.getSessionAttributes().put("username", message.getName());
 
         // this message is sent to all subscribers of /topic/greetings
-        messageTemplate.convertAndSend("/topic/greetings", "User " + message.getName() + " said hello");
+        messageTemplate.convertAndSend("/topic/greetings", "User " + message.getName() + " connected!");
 
         // the response is serialized to a string and sent back to the sender,
         // who must be subscribed to /user/queue/hello
@@ -42,9 +42,9 @@ public class StompDemoController {
         String name = (String) headerAccessor.getSessionAttributes().get("username");
         String message;
         if (name == null) {
-            message = "Anonymous user disconnected without saying hello";
+            message = "Anonymous user disconnected!";
         } else {
-            message = "User " + name + " disconnected";
+            message = "User " + name + " disconnected!";
         }
         messageTemplate.convertAndSend("/topic/greetings", message);
     }

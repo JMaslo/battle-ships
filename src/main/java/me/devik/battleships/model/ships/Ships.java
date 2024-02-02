@@ -1,4 +1,4 @@
-package me.devik.battleships.model;
+package me.devik.battleships.model.ships;
 
 import lombok.Getter;
 import lombok.Setter;

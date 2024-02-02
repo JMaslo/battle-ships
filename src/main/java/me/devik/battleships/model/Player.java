@@ -2,6 +2,7 @@ package me.devik.battleships.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.devik.battleships.model.ships.Ships;
 
 
 import java.util.List;
