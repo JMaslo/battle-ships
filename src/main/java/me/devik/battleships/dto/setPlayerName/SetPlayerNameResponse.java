@@ -1,4 +1,4 @@
-package me.devik.battleships.dto;
+package me.devik.battleships.dto.setPlayerName;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

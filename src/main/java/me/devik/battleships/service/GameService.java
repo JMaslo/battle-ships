@@ -20,18 +20,7 @@ public class GameService {
     Game game3;
 
 
-    public GameService(Ships ship, Board gameBoard, Game game, Game game2, Game game3) {
-        this.ship = ship;
-        this.gameBoard = gameBoard;
-        this.game = game;
-        this.game2 = game2;
-        this.game3 = game3;
-    }
 
-    public void createGame(Player player) {
-        // Ask - Private/Public game
-        // Private - can copy and ID of the game
-    }
 
 
 

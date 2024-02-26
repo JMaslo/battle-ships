@@ -2,8 +2,8 @@ package me.devik.battleships.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.devik.battleships.dto.SetPlayerNameResponse;
-import me.devik.battleships.dto.SetPlayerNameRequest;
+import me.devik.battleships.dto.setPlayerName.SetPlayerNameResponse;
+import me.devik.battleships.dto.setPlayerName.SetPlayerNameRequest;
 import me.devik.battleships.model.Player;
 import me.devik.battleships.service.PlayerService;
 import org.springframework.context.event.EventListener;
