@@ -5,7 +5,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class selectGameResponse {
+public class SelectGameResponse {
     String status;
     String gameId;
     String message;

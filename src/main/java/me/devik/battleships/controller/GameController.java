@@ -2,41 +2,44 @@ package me.devik.battleships.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.devik.battleships.dto.createGame.createGameRequest;
-import me.devik.battleships.dto.createGame.createGameResponse;
-import me.devik.battleships.dto.joinGame.joinGameRequest;
-import me.devik.battleships.dto.joinGame.joinGameResponse;
-import me.devik.battleships.dto.selectGame.selectGameRequest;
-import me.devik.battleships.dto.selectGame.selectGameResponse;
-import me.devik.battleships.model.game.Game;
+import me.devik.battleships.dto.createGame.CreateGameRequest;
+import me.devik.battleships.dto.selectGame.SelectGameResponse;
+import me.devik.battleships.model.Player;
+import me.devik.battleships.service.GameService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.util.HtmlUtils;
 
 @Controller
 @Slf4j
 @RequiredArgsConstructor
 public class GameController {
+    private GameService gameService;
 
-    @MessageMapping("/topic/createGame")
-    @SendToUser("/queue/createGameResult")
-    public createGameResponse createGame(@Payload createGameRequest createGameRequest, StompHeaderAccessor stompHeaderAccessor) {
-        
-        return new createGameResponse();
-    }
 
-    @MessageMapping("/topic/joinGame")
-    @SendToUser("/queue/joinGameResult")
-    public joinGameResponse joinGame(@Payload joinGameRequest joinGameRequest, StompHeaderAccessor stompHeaderAccessor) {
 
-        return new joinGameResponse("ok", null);
-    }
     @MessageMapping("/topic/gameList")
     @SendToUser("/queue/selectGameResult")
-    public selectGameResponse selectGame(@Payload selectGameRequest selectGameRequest, StompHeaderAccessor stompHeaderAccessor) {
+    public SelectGameResponse selectGame(StompHeaderAccessor stompHeaderAccessor) {
 
-        return new selectGameResponse("ok", "gameId", null);
+        return new SelectGameResponse("ok", "gameId", null);
+    }
+
+    @MessageMapping("/topic/createGame")
+    @SendToUser("/queue/selectGameResult")
+    public SelectGameResponse createGame(@Payload CreateGameRequest message, StompHeaderAccessor stompHeaderAccessor) {
+        Player player = (Player) stompHeaderAccessor.getSessionAttributes().get("player");
+
+        if (player == null) {
+            return new SelectGameResponse("error", "gameId", "Player is null!");
+        }
+        if (player.getGame() == null) {
+            
+        }
+
+        return new SelectGameResponse("ok", "gameId", null);
     }
 }
