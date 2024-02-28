@@ -4,13 +4,19 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 @Getter
-public class Game {
+final public class Game {
 
-    String id;
-    String name_of_game;
+    final String id;
+    final String name;
+
+    public Game(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
 }
