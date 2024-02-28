@@ -27,10 +27,13 @@ public class GameController {
     private GameService gameService;
     private final GameController gameController;
     private SimpMessageSendingOperations messageTemplate;
+    private UUID gameId = UUID.randomUUID();
 
     @MessageMapping("/topic/gameList")
+//    @MessageMapping("/topic/createGame")
     @SendToUser("/queue/selectGameResult")
     public SelectGameResponse selectGame(StompHeaderAccessor stompHeaderAccessor) {
+
 
         return new SelectGameResponse("ok", UUID.randomUUID().toString(), null);
     }
@@ -44,15 +47,30 @@ public class GameController {
             return new SelectGameResponse("error", UUID.randomUUID().toString(), "Player is null!");
         }
         if (player.getGame() == null) {
-            this.gameService.createGames(player);
+            this.gameService.createGames(gameId.toString(), player);
 
         }
-
         return new SelectGameResponse("ok", UUID.randomUUID().toString(), null);
+    }
+
+    @MessageMapping("/topic/joinGame")
+    @SendToUser("/queue/selectGameResult")
+    public SelectGameResponse joinGame(StompHeaderAccessor stompHeaderAccessor) {
+        Player player = (Player) stompHeaderAccessor.getSessionAttributes().get("player");
+
+        if (player == null) {
+            return new SelectGameResponse("error", UUID.randomUUID().toString(), "Player is null!");
+        }
+        if (player.getGame() == null) {
+            this.gameService.joinGame(gameId.toString(), player);
+        }
+        return new SelectGameResponse("ok", UUID.randomUUID().toString(), "You have joined a game");
     }
 
 //    private void broadcastGameInfos() {
 //        messageTemplate.convertAndSend("/topic/gameList", gameService.getGameInfos());
 //
 //    }
+
+
 }
